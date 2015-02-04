@@ -1,0 +1,24 @@
+<div class="navbar">
+	<div class="navbar-inner">
+		<div class="left sliding"><a href="#" class="back link link icon-only"><i class="icon icon-back"></i> <span>Back</span></a></div>
+		<div class="center sliding">Hot Off The Press</div>
+				<div class="right"><a href="#" data-popup=".popup-func-search" class="link icon-only open-popup">Search</a></div>
+	</div>
+</div>
+<div class="pages">
+	<div data-page="page-browse-funcs-hot" class="page">
+		<div class="page-content">
+			<div class="content-block-title">New in WordPress {{wpversion}}</div>
+				<div class="list-block media-list tablet-inset">
+					<ul>
+					{{#each items}}
+					{{#if name}}
+					<li><a href="item-func.html?s={{name}}" class="item-link item-content"><div class="item-media"><i class="icon icon-new"></i></div><div class="item-inner"><div class="item-title-row"><div class="item-title">{{name}}</div></div><div class="item-subtitle">{{type}}</div><div class="item-text">{{desc}}</div></div></a></li>
+					{{/if}}
+					{{/each}}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

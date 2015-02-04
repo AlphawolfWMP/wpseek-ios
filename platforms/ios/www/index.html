@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WPSeek Mobile</title>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="white" />
+		<link rel="stylesheet" href="css/framework7.min.css" />
+		<link rel="stylesheet" href="css/wpseek.css" />
+	</head>
+<body class="theme-wpseek">
+
+<div class="statusbar-overlay"></div>
+
+<div class="views">
+	<div class="panel-overlay"></div>
+	<div class="panel panel-left panel-cover">
+		<div class="view view-left navbar-through" data-page="index-left">
+			<div class="page-content">
+				<div class="content-block-title"><strong>wpseek</strong> mobile</div>
+				<div class="content-block">
+					<p class="text-muted">Ever wish you could search for WordPress functions all from your device? That is exactly what WPSeek Mobile allows you to do as it acts as the first WordPress centric search engine and function reference.</p>
+				</div>
+				<div class="content-block-title">Navigation</div>
+				<div class="list-block">
+					<ul>
+						<li><a href="index.html" class="close-panel item-link" data-view=".view-main"><div class="item-content"><div class="item-media"><i class="icon icon-wpseek"></i></div><div class="item-inner">Home</div></div></a></li>
+						<li><a href="list_funcs_letters.html" class="close-panel item-link" data-view=".view-main"><div class="item-content"><div class="item-media"><i class="icon icon-wpseek"></i></div><div class="item-inner">Functions</div></div></a></li>
+						<li><a href="list_whatsnew.html" class="close-panel item-link" data-view=".view-main"><div class="item-content"><div class="item-media"><i class="icon icon-new"></i></div><div class="item-inner">Hot</div></div></a></li>
+					</ul>
+				</div>
+				<div class="content-block-title">Recently added <span id="recently_date_left"></span></div>
+				<div class="list-block">
+					<ul class="recently-results"></ul>
+				</div>
+				<div class="content-block-title">Quick Access</div>
+				<div class="list-block">
+					<ul class="quickaccess-results"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="view view-main navbar-through">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left"><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a></div>
+				<div class="center sliding">wpseek</div>
+				<div class="right"><a href="#" data-popup=".popup-func-search" class="link icon-only open-popup">Search</a></div>
+			</div>
+		</div>
+
+		<div class="toolbar">
+			<div class="toolbar-inner"><a href="#" class="link">&nbsp;</a><a href="#" data-popover=".popover-menu" class="open-popover link">Jump To</a></div>
+		</div>
+
+		<div class="pages">
+			<div class="page" data-page="page-home">
+				<div class="page-content">
+					<div class="content-block-title">WordPress Function Reference On The Go.</div>
+						<div class="list-block tablet-inset">
+							<ul>
+								<li><a href="list_funcs_letters.html" class="item-link item-content"><div class="item-media"><i class="icon icon-wpseek"></i></div><div class="item-inner"><div class="item-title">Browse Functions</div><div class="item-after"><span class="badge" id="funcstotal">0</span></div></div></a></li>
+								<li><a href="#" class="item-link item-content disabled"><div class="item-media"><i class="icon icon-wpseek"></i></div><div class="item-inner"><div class="item-title">Browse Hooks</div><div class="item-after">(Soon)</div></div></a></li>
+								<li><a href="#" class="item-link item-content disabled"><div class="item-media"><i class="icon icon-wpseek"></i></div><div class="item-inner"><div class="item-title">Browse Constants</div><div class="item-after">(Soon)</div></div></a></li>
+
+								<li><a href="list_whatsnew.html" class="item-link item-content"><div class="item-media"><i class="icon icon-new"></i></div><div class="item-inner"><div class="item-title">New in WordPress <span id="wphotversion"></span></div></div></a></li>
+							</ul>
+						</div>
+
+						<div class="content-block-title">Recently added <span id="recently_date_main"></span></div>
+						<div class="list-block tablet-inset">
+							<ul class="recently-results"></ul>
+						</div>
+
+						<div class="content-block-title">Quick Access (<a href="#" data-popup=".popup-tut-quickaccess" class="open-popup">?</a>)</div>
+						<div class="list-block tablet-inset">
+							<ul class="quickaccess-results"></ul>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script id="searchResultsTemplate" type="text/template7">
+	{{#each this}}
+	{{#if name}}
+	<li data-slug="{{name}}" data-name="{{name}}" data-type="{{type}}" class="close-popup">{{name}} <span>{{type}}</span></li>
+	{{/if}}
+	{{/each}}
+</script>
+
+<script id="recentlyResultsTemplate" type="text/template7">
+	{{#each this}}
+	{{#if name}}
+	<li class="swipeout"><div class="swipeout-content"><a href="item-func.html?s={{name}}" class="close-panel item-link item-content" data-view=".view-main"><div class="item-media"><i class="icon icon-doc"></i></div><div class="item-inner"><div class="item-title">{{name}}</div></div></a></div><div class="swipeout-actions-left"><a href="#" data-name="{{name}}" data-type="function" class="bg-green function-add"><i class="icon icon-plus"></i></a></div><div class="swipeout-actions-right"><a href="#" data-name="{{name}}" data-type="function" class="bg-red function-remove"><i class="icon icon-minus"></i></a></div></li>
+	{{/if}}
+	{{/each}}
+</script>
+
+<script id="quickAccessTemplate" type="text/template7">
+	{{#each this}}
+	{{#if name}}
+	<li class="swipeout"><div class="swipeout-content"><a href="item-func.html?s={{name}}" class="item-content close-panel item-link" data-view=".view-main"><div class="item-media"><i class="icon icon-doc"></i></div><div class="item-inner"><div class="item-title">{{name}}</div><div class="item-after"><span class="badge">{{type}}</span></div></div></a></div><div class="swipeout-actions-right"><a href="#" data-name="{{name}}" class="swipeout-delete" data-confirm="Are you sure want to remove this item from your Quick Access list?" data-confirm-title="Remove?"><i class="icon icon-minus"></i></div></li>
+	{{/if}}
+	{{else}}
+	<li class="item-content"><div class="item-media"><i class="icon icon-doc"></i></div><div class="item-inner"><div class="item-title">No items added</div></div></a></li>
+	{{/each}}
+</script>
+
+<div class="popover popover-menu">
+	<div class="popover-angle"></div>
+	<div class="popover-inner">
+		<div class="list-block">
+			<ul>
+				<li><a href="index.html" data-view=".view-main" class="list-button item-link">Home</a></li>
+				<li><a href="list_funcs_letters.html" data-view=".view-main" class="list-button item-link">Functions</a></li>
+				<li><a href="list_whatsnew.html" data-view=".view-main" class="list-button item-link">Hot</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="popup popup-func-search">
+	<div class="view navbar-fixed">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<input type="text" placeholder="Search function..." />
+					<div class="preloader preloader-white"></div>
+				</div>
+				<div class="right"><a href="#" class="link close-popup">Cancel</a></div>
+			</div>
+		</div>
+		<div class="pages">
+			<div class="page">
+				<div class="page-content">
+				<ul class="search-results"></ul>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="popup popup-func-desc">
+	<div class="view navbar-fixed">
+		<div class="page">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="center navbar-title" id="popup-func-desc-title"></div>
+					<div class="right"><a href="#" class="link close-popup">Done</a></div>
+				</div>
+			</div>
+			<div class="page-content">
+				<div class="content-block" id="popup-func-desc-content"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="popup popup-tut-quickaccess">
+	<div class="view navbar-fixed">
+		<div class="page">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="center navbar-title">Quick Access</div>
+					<div class="right"><a href="#" class="link close-popup">Close</a></div>
+				</div>
+			</div>
+			<div class="page-content">
+				<div class="content-block">You can add and remove items by swiping left or right on function items listings.</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/wpseek.js"></script>
+
+<script type="text/javascript">
+	function _return_false() {
+		return !window._cordovaNative;
+	}
+
+	document.onselectstart = _return_false;
+	document.onselect = _return_false;
+	document.ondblclick = _return_false;
+	document.oncontextmenu = document.body.oncontextmenu = _return_false;
+
+	if( window._cordovaNative ) {
+		wpseek_app.run();
+	} else {
+		wpseek.run(true);
+	}
+</script>
+
+<!-- BEGINN anormal-tracker.de V2.5 CODE -->
+<script type="text/javascript">
+var user=94194;
+var zusatz="";
+</script><script type="text/javascript" src="http://anormal-tracker.de/tracker.js"></script>
+<noscript><a href='http://anormal-tracker.de/openstat.php?userid=94194' target='_blank'><img src='http://anormal-tracker.de/countv2.php?user=94194' alt=""/></a></noscript>
+<!-- ENDE anormal-tracker.de V2.5 CODE -->
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8032401-1']);
+  _gaq.push(['_setDomainName', 'ioscordova.wpseek.com']);
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['_trackPageLoadTime']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
